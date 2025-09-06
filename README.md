@@ -14,6 +14,9 @@ to alignment mismatch).
 FreeBSD uses a fairly old jemalloc (which is no longer under active developmnet)
 and it does not have free_sized_aligned.
 
+musl doesn't have free_[aligned_]sized. Compile the source with -D__MUSL__
+(Alpine doesn't seem to have a predefined musl macro).
+
 I need to figure out which glibc version 'fixed' memalign/aligned_alloc.
 
 pass means that the allocation succeeds.
@@ -25,7 +28,7 @@ pass means that the allocation succeeds.
 | Linux new glibc |          |               |                |                    |
 | macOS           |          |               |                |                    |
 | illumos         |          |               |                |                    |
-| musl            |          |               |                |                    |
+| musl            | pass     | pass          | pass           | NA                 |
 | tcmalloc        |          |               |                |                    |
 | mimalloc        |          |               |                |                    |
 | snmalloc        |          |               |                |                    |
