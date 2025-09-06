@@ -39,7 +39,7 @@ int main()
     }
 
     // free aligned with alignment of zero
-#if !defined(__FreeBSD__)
+#if !defined(__FreeBSD__) && !defined(__MUSL__)
     mem = static_cast<int*>(memalign(0U, 16*sizeof(*mem)));
     // how to detect failure?
     free_aligned_sized(mem, 0, 16*sizeof(*mem));
@@ -79,13 +79,13 @@ int main()
 
     // free sized with size of 0
 
-#if !defined(__FreeBSD__)
-    mem = static_cast<int*>(memalign(60U, 0U);
+#if !defined(__FreeBSD__) && !defined(__MUSL__)
+    mem = static_cast<int*>(memalign(60U, 0U));
     // how to detect failure?
     free_aligned_sized(mem, 64U, 0U);
 
     // is this OK?
-    mem = static_cast<int*>(malloc(0U);
+    mem = static_cast<int*>(malloc(0U));
     // how to detect failure?
     free_sized(mem, 0U);
 
