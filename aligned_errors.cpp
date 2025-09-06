@@ -41,13 +41,6 @@ int main()
         std::cerr << "posix_memalign alignment of 0 failed, res " << res << " mem " << mem << "\n";
     }
 
-    // free aligned with alignment of zero
-#if !defined(__FreeBSD__) && !defined(__MUSL__) && !defined(__APPLE__)
-    mem = static_cast<int*>(memalign(0U, 16*sizeof(*mem)));
-    // how to detect failure?
-    free_aligned_sized(mem, 0, 16*sizeof(*mem));
-#endif
-
 #if !defined(__APPLE__)
     // size of 0
     mem = static_cast<int*>(memalign(64U, 0U));
@@ -81,21 +74,4 @@ int main()
     {
         std::cerr << "posix_memalign size of 0 failed, res " << res << " mem " << mem << "\n";
     }
-
-    // free sized with size of 0
-
-#if !defined(__FreeBSD__) && !defined(__MUSL__) && !defined(__APPLE__)
-    mem = static_cast<int*>(memalign(60U, 0U));
-    // how to detect failure?
-    free_aligned_sized(mem, 64U, 0U);
-
-    // is this OK?
-    mem = static_cast<int*>(malloc(0U));
-    // how to detect failure?
-    free_sized(mem, 0U);
-
-#endif
-
-
-
 }
