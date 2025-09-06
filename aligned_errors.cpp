@@ -6,8 +6,10 @@
 
 int main()
 {
+    int* mem{nullptr};
+#if !defined(__APPLE__)
     // alignment of 0, for info
-    int* mem = static_cast<int*>(memalign(0U, 16*sizeof(*mem)));
+    mem = static_cast<int*>(memalign(0U, 16*sizeof(*mem)));
     if (mem)
     {
         free(mem);
@@ -16,6 +18,7 @@ int main()
     {
         std::cerr << "memalign alignment of 0 failed\n";
     }
+#endif
 
     mem = static_cast<int*>(aligned_alloc(0U, 16*sizeof(*mem)));
     if (mem)
@@ -39,12 +42,13 @@ int main()
     }
 
     // free aligned with alignment of zero
-#if !defined(__FreeBSD__) && !defined(__MUSL__)
+#if !defined(__FreeBSD__) && !defined(__MUSL__) && !defined(__APPLE__)
     mem = static_cast<int*>(memalign(0U, 16*sizeof(*mem)));
     // how to detect failure?
     free_aligned_sized(mem, 0, 16*sizeof(*mem));
 #endif
 
+#if !defined(__APPLE__)
     // size of 0
     mem = static_cast<int*>(memalign(64U, 0U));
     if (mem)
@@ -55,6 +59,7 @@ int main()
     {
         std::cerr << "memalign size of 0 failed\n";
     }
+#endif
 
     mem = static_cast<int*>(aligned_alloc(64U, 0));
     if (mem)
@@ -79,7 +84,7 @@ int main()
 
     // free sized with size of 0
 
-#if !defined(__FreeBSD__) && !defined(__MUSL__)
+#if !defined(__FreeBSD__) && !defined(__MUSL__) && !defined(__APPLE__)
     mem = static_cast<int*>(memalign(60U, 0U));
     // how to detect failure?
     free_aligned_sized(mem, 64U, 0U);
