@@ -6,30 +6,45 @@ This is in support of
 
 https://bugs.kde.org/show_bug.cgi?id=509139
 
-Presumably free_aligned_sized with an alignment of zero depends on aligned_alloc
-with a size of 0 succeeding (otherwise free_sized_aligned ought to fail due
-to alignment mismatch).
-
 * Notes*
 FreeBSD uses a fairly old jemalloc (which is no longer under active developmnet)
 and it does not have free_sized_aligned.
 
-musl doesn't have free_[aligned_]sized. Compile the source with -D__MUSL__
+musl doesn't have free_aligned_sized. Compile the source with -D__MUSL__
 (Alpine doesn't seem to have a predefined musl macro).
 
-I need to figure out which glibc version 'fixed' memalign/aligned_alloc.
+I'll write a separate test for the C free functions.
 
-pass means that the allocation succeeds.
+GNU libc <= 2.38 'fixed' aligned_alloc.
 
-| Platform        | memalign | aligned_alloc | posix_memalign | free_aligned_sized |
-|-----------------|----------|---------------|----------------|--------------------|
-| FreeBSD         | pass     | pass          | pass           | NA                 |
-| Linux old glibc |          |               |                |                    |
-| Linux new glibc |          |               |                |                    |
-| macOS           |          |               |                |                    |
-| illumos         |          |               |                |                    |
-| musl            | pass     | pass          | pass           | NA                 |
-| tcmalloc        |          |               |                |                    |
-| mimalloc        |          |               |                |                    |
-| snmalloc        |          |               |                |                    |
-| Windows MSVC    |          |               |                |                    |
+pass means that the allocation succeeds with a size of 0
+
+| Platform        | memalign | aligned_alloc | posix_memalign |
+|-----------------|----------|---------------|----------------|
+| FreeBSD         | pass     | pass          | pass           |
+| Linux old glibc | pass     | pass          | pass           |
+| Linux new glibc |          |               |                |
+| macOS           | NA       | pass          | pass           |
+| Solaris         | pass     | fail          | pass           |
+| illumos         | pass     | fail          | pass           |
+| musl            | pass     | pass          | pass           |
+| tcmalloc        | pass     | pass          | pass           |
+| mimalloc        | pass     | pass          | pass           |
+| snmalloc        |          |               |                |
+| Windows MSVC    |          |               |                |
+
+Just for the record, the same thing with an alignment of 0
+
+| Platform        | memalign | aligned_alloc | posix_memalign |
+|-----------------|----------|---------------|----------------|
+| FreeBSD         | pass     | fail          | fail           |
+| Linux old glibc | pass     | pass          | fail           |
+| Linux new glibc |          |               |                |
+| macOS           | NA       | fail          | fail           |
+| Solaris         | fail     | fail          | pass           |
+| illumos         | fail     | fail          | fail           |
+| musl            | pass     | pass          | fail           |
+| tcmalloc        |          |               |                |
+| mimalloc        | fail     | fail          | fail           |
+| snmalloc        |          |               |                |
+| Windows MSVC    |          |               |                |
