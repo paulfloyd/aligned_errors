@@ -19,19 +19,19 @@ GNU libc <= 2.38 'fixed' aligned_alloc.
 
 pass means that the allocation succeeds with a size of 0
 
-| Platform        | memalign | aligned_alloc | posix_memalign   |
-|-----------------|----------|---------------|------------------|
-| FreeBSD         | pass     | pass          | pass, allocation |
-| Linux old glibc | pass     | pass          | pass             |
-| Linux new glibc | pass     | pass          | pass             |
-| macOS           | NA       | pass          | pass             |
-| Solaris         | fail     | fail          | pass             |
-| illumos         | fail     | fail          | pass             |
-| musl            | pass     | pass          | pass             |
-| tcmalloc        | pass     | pass          | pass             |
-| mimalloc        | pass     | pass          | pass             |
-| snmalloc        |          |               |                  |
-| Windows MSVC    |          |               |                  |
+| Platform        | memalign | aligned_alloc | posix_memalign       |
+|-----------------|----------|---------------|----------------------|
+| FreeBSD         | pass     | pass          | pass, allocation     |
+| Linux old glibc | pass     | pass          | pass, allocation     |
+| Linux new glibc | pass     | pass          | pass                 |
+| macOS           | NA       | pass          | pass, alllocation    |
+| Solaris         | fail     | fail          | pass, no allocation  |
+| illumos         | fail     | fail          | pass, no alllocation |
+| musl            | pass     | pass          | pass, allocation     |
+| tcmalloc        | pass     | pass          | pass, allocation     |
+| mimalloc        | pass     | pass          | pass, allocation     |
+| snmalloc        |          |               |                      |
+| Windows MSVC    |          |               |                      |
 
 Just for the record, the same thing with an alignment of 0
 
@@ -44,7 +44,7 @@ Just for the record, the same thing with an alignment of 0
 | Solaris         | fail     | fail          | fail           |
 | illumos         | fail     | fail          | fail           |
 | musl            | pass     | pass          | fail           |
-| tcmalloc        |          |               |                |
+| tcmalloc        | pass     | pass          | fail           |
 | mimalloc        | fail     | fail          | fail           |
 | snmalloc        |          |               |                |
 | Windows MSVC    |          |               |                |
