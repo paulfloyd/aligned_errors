@@ -23,7 +23,7 @@ pass means that the allocation succeeds with a size of 0
 |-----------------|----------|---------------|----------------------|
 | FreeBSD         | pass     | pass          | pass, allocation     |
 | Linux old glibc | pass     | pass          | pass, allocation     |
-| Linux new glibc | pass     | pass          | pass                 |
+| Linux new glibc | pass     | pass          | pass, allocation     |
 | macOS           | NA       | pass          | pass, alllocation    |
 | Solaris         | fail     | fail          | pass, no allocation  |
 | illumos         | fail     | fail          | pass, no alllocation |
