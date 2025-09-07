@@ -31,7 +31,6 @@ pass means that the allocation succeeds with a size of 0
 | tcmalloc        | pass     | pass          | pass, allocation     |
 | mimalloc        | pass     | pass          | pass, allocation     |
 | snmalloc        |          |               |                      |
-| Windows MSVC    |          |               |                      |
 
 Just for the record, the same thing with an alignment of 0
 
@@ -47,4 +46,11 @@ Just for the record, the same thing with an alignment of 0
 | tcmalloc        | pass     | pass          | fail           |
 | mimalloc        | fail     | fail          | fail           |
 | snmalloc        |          |               |                |
-| Windows MSVC    |          |               |                |
+
+Windows does not have any of these functions. Instead there is *_aligned_malloc* (and *_aligned_free*). This does accept a size of 0. An alignment of zero causes a runtime exception in the debug C runtime library (nice). And it requires the use of _aligned_free - calling free also produces an runtime exception (also nice).
+
+At the end of the day, 
+UNIX and C = horrible mess
+POSIX = OK
+Windows = good
+
