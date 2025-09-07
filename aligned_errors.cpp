@@ -16,6 +16,7 @@ int main()
     if (mem)
     {
         free(mem);
+        mem = nullptr;
     }
     else
     {
@@ -27,6 +28,7 @@ int main()
     if (mem)
     {
         free(mem);
+        mem = nullptr;
     }
     else
     {
@@ -37,7 +39,16 @@ int main()
     int res = posix_memalign((void**)&mem, 0U, 16*sizeof(*mem));
     if (res == 0)
     {
-        free(mem);
+        if (mem)
+        {
+            std::cerr << "posix_memalign alignment of 0 succeeded and allocated\n";
+            free(mem);
+            mem = nullptr;
+        }
+        else
+        {
+            std::cerr << "posix_memalign alignment of 0 succeeded but did not allocate\n";
+        }
     }
     else
     {
@@ -50,6 +61,7 @@ int main()
     if (mem)
     {
         free(mem);
+        mem = nullptr;
     }
     else
     {
@@ -61,17 +73,26 @@ int main()
     if (mem)
     {
         free(mem);
+        mem = nullptr;
     }
     else
     {
         std::cerr << "aligned_alloc size of 0 failed\n";
     }
 
-    mem = nullptr;
     res = posix_memalign((void**)&mem, 64U, 0);
     if (res == 0)
     {
-        free(mem);
+        if (mem)
+        {
+            std::cerr << "posix_memalign size of 0 succeeded and allocated\n";
+            free(mem);
+            mem = nullptr;
+        }
+        else
+        {
+            std::cerr << "posix_memalign size of 0 succeeded but did not allocate\n";
+        }
     }
     else
     {
