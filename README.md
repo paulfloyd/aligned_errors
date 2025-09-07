@@ -41,7 +41,7 @@ Just for the record, the same thing with an alignment of 0
 | Linux old glibc | pass     | pass          | fail           |
 | Linux new glibc | pass     | fail          | fail           |
 | macOS           | NA       | fail          | fail           |
-| Solaris         | fail     | fail          | pass           |
+| Solaris         | fail     | fail          | fail           |
 | illumos         | fail     | fail          | fail           |
 | musl            | pass     | pass          | fail           |
 | tcmalloc        |          |               |                |
