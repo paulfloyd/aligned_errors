@@ -25,7 +25,7 @@ pass means that the allocation succeeds with a size of 0
 | Linux old glibc | pass     | pass          | pass           |
 | Linux new glibc | pass     | pass          | pass           |
 | macOS           | NA       | pass          | pass           |
-| Solaris         | pass     | fail          | pass           |
+| Solaris         | fail     | fail          | pass           |
 | illumos         | pass     | fail          | pass           |
 | musl            | pass     | pass          | pass           |
 | tcmalloc        | pass     | pass          | pass           |
