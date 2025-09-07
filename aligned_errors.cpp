@@ -3,6 +3,9 @@
 #if defined(__FreeBSD__)
 #include "malloc_np.h"
 #endif
+#if defined(__linux__)
+#include <malloc.h>
+#endif
 
 int main()
 {
